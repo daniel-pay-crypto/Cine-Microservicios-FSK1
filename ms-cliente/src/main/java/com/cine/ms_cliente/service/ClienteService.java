@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Slf4j // Invocamos a SLF4J para dejar logs estructurados[cite: 8].
+@Slf4j // Invocamos a SLF4J para dejar logs estructurados
 @Service
 @RequiredArgsConstructor
 public class ClienteService {

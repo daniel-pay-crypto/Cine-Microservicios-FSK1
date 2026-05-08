@@ -1,9 +1,11 @@
 package com.cine.ms_cliente;
-
+//tommy y dael si leen esto esta todo bien.
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication
+@EnableFeignClients // esta es la magia para conectar los proyectos con Feign
 public class MsClienteApplication {
 
 	public static void main(String[] args) {

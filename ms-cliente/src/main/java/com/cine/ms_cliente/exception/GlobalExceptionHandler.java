@@ -6,7 +6,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-
 import java.time.LocalDateTime;
 import java.util.stream.Collectors;
 
@@ -27,11 +26,11 @@ public class GlobalExceptionHandler {
         ErrorResponse error = ErrorResponse.builder()
                 .mensaje("Errores de validación en los datos enviados")
                 .detalle(detalle)
-                .status(HttpStatus.BAD_REQUEST.value()) // Código 400
+                .status(HttpStatus.BAD_REQUEST.value()) // Código 400 (Codigo de error de usuario)
                 .timestamp(LocalDateTime.now())
                 .build();
 
-        return ResponseEntity.badRequest().body(error); // Devuelve HTTP 400[cite: 8]
+        return ResponseEntity.badRequest().body(error); // Devuelve HTTP 400
     }
 
     // 2. Atrapa los errores de negocio que lanzamos manualmente (Ej: "Ya existe el RUN")
@@ -50,15 +49,15 @@ public class GlobalExceptionHandler {
         return ResponseEntity.badRequest().body(error);
     }
 
-    // 3. Atrapa cualquier otro error inesperado (Ej: se cayó la base de datos)[cite: 8]
+    // 3. Atrapa cualquier otro error inesperado (Ej: se cayó la base de datos)
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleGeneric(Exception ex) {
         log.error("Error interno inesperado del servidor: ", ex);
 
         ErrorResponse error = ErrorResponse.builder()
                 .mensaje("Error Interno en el servidor")
-                .detalle(ex.getMessage()) // En producción, es mejor no exponer el detalle exacto por seguridad[cite: 8]
-                .status(HttpStatus.INTERNAL_SERVER_ERROR.value()) // Código 500[cite: 8]
+                .detalle(ex.getMessage()) // En producción, es mejor no exponer el detalle exacto por seguridad
+                .status(HttpStatus.INTERNAL_SERVER_ERROR.value()) // Código 500
                 .timestamp(LocalDateTime.now())
                 .build();
 
